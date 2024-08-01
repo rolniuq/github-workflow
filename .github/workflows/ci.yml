@@ -1,0 +1,19 @@
+name: test
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Golang
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: '../../go.mod'
+
+      - name: install dependencies
+        run: go mod tidy
+
+      - name: run tests
+        run: go test
